@@ -62,9 +62,21 @@ public final class Revs {
             suffixes.add(new Suffix(operator, count));
         }
 
-        int current = base.charAt(0) == '@'
-                ? history.indexOfLabel(base.substring(1))
-                : history.indexOf(base);
+        int current;
+        if (base.charAt(0) == '@') {
+            current = history.indexOfLabel(base.substring(1));
+        } else {
+            current = history.indexOf(base);
+            if (current < 0) {
+                List<Integer> matches = history.indexesOfPrefix(base);
+                if (matches.size() > 1) {
+                    throw new Failure("ambiguous revision " + Text.show(text));
+                }
+                if (matches.size() == 1) {
+                    current = matches.get(0);
+                }
+            }
+        }
         if (current < 0) {
             throw unknown(text);
         }

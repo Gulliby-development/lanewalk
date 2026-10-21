@@ -58,6 +58,16 @@ public final class History {
         return ids.getOrDefault(id, -1);
     }
 
+    public List<Integer> indexesOfPrefix(String prefix) {
+        List<Integer> matches = new ArrayList<>();
+        for (int i = 0; i < commits.size(); i++) {
+            if (commits.get(i).id().startsWith(prefix)) {
+                matches.add(i);
+            }
+        }
+        return matches;
+    }
+
     public int indexOfLabel(String label) {
         return labels.getOrDefault(label, -1);
     }
