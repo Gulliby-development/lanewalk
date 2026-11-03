@@ -72,6 +72,16 @@ public final class History {
         return labels.getOrDefault(label, -1);
     }
 
+    public List<String> labelsWithPrefix(String prefix) {
+        List<String> matches = new ArrayList<>();
+        for (String label : labels.keySet()) {
+            if (label.startsWith(prefix)) {
+                matches.add(label);
+            }
+        }
+        return matches;
+    }
+
     public List<Integer> children(int index) {
         return children.get(index);
     }

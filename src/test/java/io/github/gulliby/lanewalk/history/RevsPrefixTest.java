@@ -98,9 +98,10 @@ class RevsPrefixTest {
     }
 
     @Test
-    void labelsAreNeverAbbreviated() {
+    void labelsMayBeAbbreviatedAndOnlyByAnExistingPrefix() {
         assertEquals(0, Revs.resolve(HISTORY, "@v1"));
-        assertFailure("@v", "unknown revision \"@v\"");
+        assertEquals(0, Revs.resolve(HISTORY, "@v"));
+        assertFailure("@w", "unknown revision \"@w\"");
     }
 
     @Test
@@ -133,7 +134,7 @@ class RevsPrefixTest {
         assertError("lanewalk: ambiguous revision \"c\"\n", "c");
         assertError("lanewalk: unknown revision \"A1B\"\n", "A1B");
         assertError("lanewalk: unknown revision \"a1x\"\n", "a1x");
-        assertError("lanewalk: unknown revision \"@v\"\n", "@v");
+        assertError("lanewalk: unknown revision \"@w\"\n", "@w");
         assertError("lanewalk: invalid revision \"a1~x\"\n", "a1~x");
     }
 

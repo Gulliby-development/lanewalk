@@ -64,7 +64,17 @@ public final class Revs {
 
         int current;
         if (base.charAt(0) == '@') {
-            current = history.indexOfLabel(base.substring(1));
+            String name = base.substring(1);
+            current = history.indexOfLabel(name);
+            if (current < 0) {
+                List<String> matches = history.labelsWithPrefix(name);
+                if (matches.size() > 1) {
+                    throw new Failure("ambiguous revision " + Text.show(text));
+                }
+                if (matches.size() == 1) {
+                    current = history.indexOfLabel(matches.get(0));
+                }
+            }
         } else {
             current = history.indexOf(base);
             if (current < 0) {
