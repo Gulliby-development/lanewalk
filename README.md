@@ -30,7 +30,7 @@ Below, `lanewalk` stands for `java -cp target/classes io.github.gulliby.lanewalk
 
 `FILE` names a history file, or `-` to read the history from standard input. A revision is a commit id or a label such as `@rc`, optionally followed by parent suffixes: `m9^2~1` selects the first parent of the second parent of `m9`. The range spec `c4` selects a revision and its ancestors, `c4..m9` selects commits reachable from `m9` but not from `c4`, and `c7...c8` selects commits reachable from exactly one of the two revisions.
 
-A commit id may be abbreviated: when no commit has exactly the written id and the id (without its suffixes) is the beginning of exactly one commit id, that commit is meant (`m` selects `m6` when no other id starts with `m`). An exact id always wins (`c1` is `c1` even when `c10` exists). A beginning shared by several ids is the error `ambiguous revision "X"`, and one shared by none is `unknown revision "X"`. Labels are never abbreviated, and commands always print the full ids.
+A commit id may be abbreviated: when no commit has exactly the written id and the id (without its suffixes) is the beginning of exactly one commit id, that commit is meant (`m` selects `m6` when no other id starts with `m`). An exact id always wins (`c1` is `c1` even when `c10` exists). A beginning shared by several ids is the error `ambiguous revision "X"`, and one shared by none is `unknown revision "X"`. A label may be abbreviated the same way: when no commit has exactly the label written after the `@` and the label is the beginning of exactly one label, that label is meant (`@rel` selects `@release` when no other label starts with `rel`). An exact label always wins (`@rc1` is `@rc1` even when `@rc10` exists), a beginning shared by several labels is the error `ambiguous revision "X"` and one shared by none is `unknown revision "X"`, as for ids. A commit id is never read as a label, and commands always print the full ids.
 
 Run `lanewalk --help` to display:
 
@@ -237,6 +237,7 @@ The Java source and test trees are organized as follows:
 - `src/test/java/io/github/gulliby/lanewalk/history`
 - `src/test/java/io/github/gulliby/lanewalk/history/ParserShapeTest.java`
 - `src/test/java/io/github/gulliby/lanewalk/history/ParserTest.java`
+- `src/test/java/io/github/gulliby/lanewalk/history/RevsLabelPrefixTest.java`
 - `src/test/java/io/github/gulliby/lanewalk/history/RevsPrefixTest.java`
 - `src/test/java/io/github/gulliby/lanewalk/history/RevsTest.java`
 
